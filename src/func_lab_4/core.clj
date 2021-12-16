@@ -13,17 +13,17 @@
   "succession"
   [x, y]
   (cond
-    ( = x true) y
+    (= x true) y
     :else true))
 
-(defn factorial[x] (if (<= x 1) 1 (* x  (factorial  (- x 1)))))
+(defn factorial [x] (if (<= x 1) 1 (* x (factorial (- x 1)))))
 
 (defn recursive-reverse
   "reverse"
   [x]
   (cond (empty? x)
-    []
-    :else (conj (recursive-reverse (rest x)) (first x)  )))
+        []
+        :else (conj (recursive-reverse (rest x)) (first x))))
 
 (defn ahalai-mahalai "sherbet sladkii" [x] (cons (first (recursive-reverse x)) (recursive-reverse (cons (first x) (rest (recursive-reverse (rest x)))))))
 
@@ -50,9 +50,61 @@
     (= data ()) (recursive-reverse answer)
     :else (trim (rest data) patrn
                 (cond
-                  (not (= (first data) patrn)) (cons (first data) answer )
+                  (not (= (first data) patrn)) (cons (first data) answer)
                   :else answer
                   )
                 ))
   )
+
+;define function as analog of COMMON LISP atom
+(defn atom? [a] (cond (not (list? a)) true :else false))
+
+(defn isOneLevel [x]
+  (cond (or (= x ()) (atom? x)) true
+        :else (and (atom? (first x)) (isOneLevel (rest x))))
+  )
+
+(defn countNumbers [x]
+  (cond (= x ()) 0
+        :else (+ (first x) (countNumbers (rest x))))
+  )
+
+(defn countNumbersMultidivisions [x]
+  (cond (= x ()) 0
+        :else (cond (atom? (first x)) (+ (first x) (countNumbersMultidivisions (rest x)))
+                    :else (+ (countNumbersMultidivisions (first x)) (countNumbersMultidivisions (rest x)))
+                    )))
+
+(defn preonion [n]
+  (cond (= n 0) '(0)
+        :else (list n (preonion (- n 1)))
+        ))
+
+(defn onion [n]
+  ()
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
